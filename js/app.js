@@ -26,7 +26,7 @@ Creatures.prototype.render = function(){
 };
 
 
-$.ajax('/data/page-1.json').then(creaturesJson => {
+$.ajax('data/page-1.json').then(creaturesJson => {
   const creatures = [];
   creaturesJson.forEach(creature => {
     creatures.push(new Creatures(creature.title, creature.image_url, creature.description));
