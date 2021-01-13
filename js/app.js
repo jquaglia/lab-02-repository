@@ -29,7 +29,7 @@ const dropDown = keyword => {
   $('select').append($menu);
 };
 
-$.ajax('/data/page-1.json').then(creaturesJson => {
+$.ajax('data/page-1.json').then(creaturesJson => {
   const creatures = [];
 
   creaturesJson.forEach(creature => {
