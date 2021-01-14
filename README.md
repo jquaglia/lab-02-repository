@@ -1,8 +1,8 @@
-# LAB - Number 02
+# LAB - Number 03
 
 ## jQuery Selectors and Events
 
-### Time Estimates
+### Time Estimates lab 2
 
 1. Number and name of feature: Display Images
 
@@ -22,7 +22,7 @@
 
   Finish time: 6:40
 
-  Actual time needed to complete: 1:50 
+  Actual time needed to complete: 1:50
 
 1. Number and name of feature: Style the Application
 
@@ -34,6 +34,40 @@
 
   Actual time needed to complete: 20 min
 
+## Flexbox and Templating
+
+### Time Estimates lab 3
+
+1. Number and name of feature: Templating
+
+  Estimate of time needed to complete: 1 hour
+
+  Start time: 1:05
+
+  Finish time: 1:35
+
+  Actual time needed to complete: 30 min
+
+1. Number and name of feature: Pagination
+
+  Estimate of time needed to complete: 1 hour
+
+  Start time: 1:40
+
+  Finish time: 2:16
+
+  Actual time needed to complete: 31 min
+
+1. Number and name of feature: Sorting the images
+
+  Estimate of time needed to complete: 1 hour
+
+  Start time: 2:18
+
+  Finish time: 2:16
+
+  Actual time needed to complete: 31 min
+
 ### Authors:
 
 - Jason Quaglia
@@ -43,6 +77,7 @@
 ### Links and Resources
 
 ### Collaborators
+
 - Chance Harmon
 
-- Skylar 
+- Skylar
