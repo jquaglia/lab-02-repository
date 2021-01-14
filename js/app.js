@@ -1,9 +1,9 @@
 'use strict';
 
-const creatureKeywords = [];
+let creatures = [];
+let creatureKeywords = [];
 const pageOneLink = 'data/page-1.json';
 const pageTwoLink = 'data/page-2.json';
-let pageOne = true;
 
 function Creatures(title, url, description, keyword, horns) {
   this.title = title;
@@ -28,56 +28,17 @@ const dropDown = keyword => {
 
 const updatePageData = url => {
   $.ajax(url).then(creaturesJson => {
-    const creatures = [];
+
     creaturesJson.forEach(creature => {
       creatures.push(new Creatures(creature.title, creature.image_url, creature.description, creature.keyword, creature.horns));
     });
 
-    const sortFunction = ((property) => {
-      creatures.sort((left, right) => {
-        if (left[property] > right[property]) {
-          return 1;
-        } else if (left[property] < right[property]) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-    });
-
     sortFunction('title');
-
-    if ($('#sort-alphabet:checked')) {
-      sortFunction('title'); // Sorting by Title before they load
-    } else if ($('#sort-horns:checked')) {
-      sortFunction('horns');
-    }
-
-    $('#sort-horns').on('click', () => {
-      console.log('this is working');
-      sortFunction('horns');
-      console.log('this is working 2');
-      // sortFunction()
-      // if ($('#sort-alphabet')){
-      //   console.log('this is working blalblkjd');
-      // }
-      // if(pageOne === true){
-      //   $('li').remove();
-      //   updatePageData(pageOneLink);
-      // } else if (pageOne === false){
-      //   $('li').remove();
-      //   updatePageData(pageTwoLink);
-      // }
-    });
 
     creatures.forEach(creature => {
       if (!creatureKeywords.includes(creature.keyword)) {
         creatureKeywords.push(creature.keyword);
       }
-    });
-
-    creatures.forEach(creature => {
-      creature.render();
     });
 
     creatureKeywords.forEach(keyword => {
@@ -88,22 +49,53 @@ const updatePageData = url => {
 
 updatePageData(pageOneLink);
 
+$('form').on('change', () => {
+  if ($('#sort-alphabet').is(':checked')) {
+    sortFunction('title'); // Sorting by Title before they load
+  } else if ($('#sort-horns').is(':checked')) {
+    sortFunction('horns');
+  }
+});
+
+const sortFunction = ((property) => {
+  console.log(property);
+  creatures.sort((left, right) => {
+    console.log(left[property]);
+    if (left[property] > right[property]) {
+      return 1;
+    } else if (left[property] < right[property]) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+
+  $('li').remove();
+  creatures.forEach(creature => {
+    creature.render();
+  });
+});
+
 $('select').on('change', () => {
   const value = $('select').val();
   $('li').hide();
   $(`.${value}`).show();
 });
 
-$('#button-1').on('click', (updatePageData) => {
+$('#button-1').on('click', () => {
   $('li').remove();
+  $('option').not(':first').remove();
+  creatures = [];
+  creatureKeywords = [];
   updatePageData(pageOneLink);
-  pageOne = true;
 });
 
 $('#button-2').on('click', () => {
   $('li').remove();
+  $('option').not(':first').remove();
+  creatures = [];
+  creatureKeywords = [];
   updatePageData(pageTwoLink);
-  pageOne = false;
 });
 
 
