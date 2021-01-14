@@ -64,9 +64,24 @@
 
   Start time: 2:18
 
-  Finish time: 2:16
+  Finish time: 4:40
+  
+  Start time: 7:45
 
-  Actual time needed to complete: 31 min
+  Finish time: 9:00 
+
+  Actual time needed to complete: 3hours 40min
+
+  1. FlexBox
+
+  Estimate of time needed to complete: 1 hour
+
+  Start time: 7:00
+
+  Finish time: 7:45
+
+  Actual time needed to complete: 45 min
+  
 
 ### Authors:
 
