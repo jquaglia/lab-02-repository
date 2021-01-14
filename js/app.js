@@ -1,5 +1,9 @@
 'use strict';
+
 const creatureKeywords = [];
+const pageOneLink = 'data/page-1.json';
+const pageTwoLink = 'data/page-2.json';
+let pageOne = true;
 
 function Creatures(title, url, description, keyword, horns) {
   this.title = title;
@@ -11,17 +15,10 @@ function Creatures(title, url, description, keyword, horns) {
 
 Creatures.prototype.render = function () {
   let $templateClone = $('#photo-template').html();
-  $templateClone = $(`<li class = "${this.keyword}">${$templateClone}</li>`);
+  const object = this;
 
-  const $h2 = $templateClone.find('h2');
-  $h2.text(this.title);
-
-  const $img = $templateClone.find('img');
-  $img.attr('src', this.image_url);
-  $img.attr('alt', this.description);
-
-  $templateClone.find('p').text(this.description);
-  $('ul').append($templateClone);
+  const renderHtml = $(`<li class="${this.keyword} ${this.horns}">${Mustache.render($templateClone, object)}</li>`);
+  $('ul').append(renderHtml);
 };
 
 const dropDown = keyword => {
@@ -29,32 +26,84 @@ const dropDown = keyword => {
   $('select').append($menu);
 };
 
-$.ajax('data/page-1.json').then(creaturesJson => {
-  const creatures = [];
+const updatePageData = url => {
+  $.ajax(url).then(creaturesJson => {
+    const creatures = [];
+    creaturesJson.forEach(creature => {
+      creatures.push(new Creatures(creature.title, creature.image_url, creature.description, creature.keyword, creature.horns));
+    });
 
-  creaturesJson.forEach(creature => {
-    creatures.push(new Creatures(creature.title, creature.image_url, creature.description, creature.keyword, creature.horns));
-  });
+    const sortFunction = ((property) => {
+      creatures.sort((left, right) => {
+        if (left[property] > right[property]) {
+          return 1;
+        } else if (left[property] < right[property]) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+    });
 
-  creatures.forEach(creature => {
-    if (!creatureKeywords.includes(creature.keyword)) {
-      creatureKeywords.push(creature.keyword);
+    sortFunction('title');
+
+    if ($('#sort-alphabet:checked')) {
+      sortFunction('title'); // Sorting by Title before they load
+    } else if ($('#sort-horns:checked')) {
+      sortFunction('horns');
     }
-  });
 
-  creatures.forEach(creature => {
-    creature.render();
-  });
+    $('#sort-horns').on('click', () => {
+      console.log('this is working');
+      sortFunction('horns');
+      console.log('this is working 2');
+      // sortFunction()
+      // if ($('#sort-alphabet')){
+      //   console.log('this is working blalblkjd');
+      // }
+      // if(pageOne === true){
+      //   $('li').remove();
+      //   updatePageData(pageOneLink);
+      // } else if (pageOne === false){
+      //   $('li').remove();
+      //   updatePageData(pageTwoLink);
+      // }
+    });
 
-  creatureKeywords.forEach(keyword => {
-    dropDown(keyword);
-  });
+    creatures.forEach(creature => {
+      if (!creatureKeywords.includes(creature.keyword)) {
+        creatureKeywords.push(creature.keyword);
+      }
+    });
 
-});
+    creatures.forEach(creature => {
+      creature.render();
+    });
+
+    creatureKeywords.forEach(keyword => {
+      dropDown(keyword);
+    });
+  });
+};
+
+updatePageData(pageOneLink);
 
 $('select').on('change', () => {
-  let value = $('select').val();
+  const value = $('select').val();
   $('li').hide();
   $(`.${value}`).show();
 });
+
+$('#button-1').on('click', () => {
+  $('li').remove();
+  updatePageData(pageOneLink);
+  pageOne = true;
+});
+
+$('#button-2').on('click', () => {
+  $('li').remove();
+  updatePageData(pageTwoLink);
+  pageOne = false;
+});
+
 
