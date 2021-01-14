@@ -94,7 +94,7 @@ $('select').on('change', () => {
   $(`.${value}`).show();
 });
 
-$('#button-1').on('click', () => {
+$('#button-1').on('click', (updatePageData) => {
   $('li').remove();
   updatePageData(pageOneLink);
   pageOne = true;

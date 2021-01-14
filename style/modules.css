@@ -1,3 +1,6 @@
+body{
+  background-color: rgb(224, 203, 211);
+    }
 h1{
   
   text-align: center;
@@ -6,4 +9,8 @@ h1{
 h2{
   text-align: center;
   font-size: 2em;
+}
+
+#button-1, #button-2{
+  background-color:  rgb(104, 109, 36) ;
 }
