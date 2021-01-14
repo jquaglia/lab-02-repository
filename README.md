@@ -80,7 +80,7 @@
 
   Finish time: 7:45
 
-  Actual time needed to complete: 45 min
+  Actual time needed to complete: 45 min 
   
 
 ### Authors:

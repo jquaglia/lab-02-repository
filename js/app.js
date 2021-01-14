@@ -71,7 +71,7 @@ $('form').on('change', () => {
   }
 });
 
-//dynamic sorting to use to sort title and sort number of horns.
+//dynamic sorting to use to sort title and sort number of horns
 const sortFunction = (property => {
   console.log(property);
   creatures.sort((left, right) => {
